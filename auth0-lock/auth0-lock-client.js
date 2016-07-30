@@ -12,7 +12,7 @@ if (AUTH0_CLIENT_ID && AUTH0_DOMAIN) {
   Lock = new Auth0Lock(
     AUTH0_CLIENT_ID, AUTH0_DOMAIN, _.extend({
       auth: { redirect: false },
-      avatar: false,
+      avatar: null,
       autoclose: true,
     }, options), (err, res) => {
       if (err) {
