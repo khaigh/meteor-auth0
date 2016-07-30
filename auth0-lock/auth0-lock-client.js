@@ -4,17 +4,17 @@ import Auth0Lock from 'auth0-lock/lib/classic';
 
 import './auth0-lock-common';
 
-const { AUTH0_CLIENT_ID, AUTH0_DOMAIN } = Meteor.settings.public;
+const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, options } = Meteor.settings.public.auth0;
 
 let Lock = null;
 
 if (AUTH0_CLIENT_ID && AUTH0_DOMAIN) {
   Lock = new Auth0Lock(
-    AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
+    AUTH0_CLIENT_ID, AUTH0_DOMAIN, _.extend({
       auth: { redirect: false },
-      avatar: null,
+      avatar: false,
       autoclose: true,
-    }, (err, res) => {
+    }, options), (err, res) => {
       if (err) {
         // TODO: handle error
       } else {
