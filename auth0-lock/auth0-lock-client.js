@@ -27,25 +27,16 @@ if (AUTH0_CLIENT_ID && AUTH0_DOMAIN) {
     }
   );
 
-  const hash = Lock.parseHash();
-  if (hash) {
-    // Login is redirect. Profile should be handled here.
-    if (hash.error) {
-      // TODO: handle error
-      // console.log("There was an error logging in... ", hash.error);
-    } else {
-      Lock.getProfile(hash.id_token, (err, profile, token) => {
-        if (err) {
-          // TODO: handle error
-          // console.log('Cannot get user :(', err);
-          return;
-        }
-
-        const auth0 = { profile, token };
-        Accounts.callLoginMethod({ methodArguments: [{ auth0 }] });
-      });
-    }
-  }
+  Lock.on("authenticated", function(authResult) {
+    Lock.getProfile(authResult.idToken, function(err, profile) {
+      if (err) {
+        // TODO: handle error
+        // console.log('Cannot get user :(', err);
+      }
+      const auth0 = { profile, token : authResult.idToken };
+      Accounts.callLoginMethod({ methodArguments: [{auth0}]});
+    });
+  });
 
   Lock.logout = () => {
     Meteor.logout();
