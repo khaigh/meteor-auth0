@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import Auth0Lock from 'auth0-lock/lib/classic';
+import Auth0Lock from 'auth0-lock';
 
 import './auth0-lock-common';
 
@@ -12,7 +12,6 @@ if (AUTH0_CLIENT_ID && AUTH0_DOMAIN) {
   Lock = new Auth0Lock(
     AUTH0_CLIENT_ID, AUTH0_DOMAIN, _.extend({
       auth: { redirect: false },
-      avatar: null,
       autoclose: true,
     }, options), (err, res) => {
       if (err) {

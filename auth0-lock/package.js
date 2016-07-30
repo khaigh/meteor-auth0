@@ -9,7 +9,7 @@ Package.describe({
 Npm.depends({
   'events': '1.1.0',
   'util': '0.10.3',
-  'auth0-lock': '10.0.0-beta.1',
+  'auth0-lock': 'file:///home/vagrant/lock'
 });
 
 Package.onUse(function (api) {
